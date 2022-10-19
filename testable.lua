@@ -12,4 +12,8 @@ mytable = {
             end
         end
     end,
-}
+    noCoverage = function(s) -- uncovered (7/8)
+        local x = 10 -- uncovered x2 (7/9)
+        print(x) -- uncovered x3 (7/10)
+    end
+} -- this is the end of my file...

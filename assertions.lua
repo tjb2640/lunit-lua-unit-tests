@@ -22,7 +22,7 @@ local nilstr = function(v)
 end
 
 Assertions = {
-    Version = "0.0.1"
+    Version = "0.0.2"
 }
 
 Assertions._base_assertion = {
@@ -73,6 +73,16 @@ Assertions._base_assertion = {
         self.actual = _G.type(self.value)
         self.expected = _G.string.format("type = \"%s\"", typeName)
         self.result = _G.type(self.value) == typeName
+        return self
+    end,
+    Captured = function(self)
+        self.expected = _G.string.format("captured at least once")
+        if LUnit then
+            self.actual = #(LUnit.Suite.GetCaptured(self.value) or {})
+            self.result = self.actual > 0
+        else
+            self.result = false
+        end
         return self
     end,
     CapturedTimes = function(self, x)
